@@ -21,10 +21,10 @@ def message_handler():
     talktome = request.args.get('talktome')
 
     if sendmail:
-        send_email_task.delay(sendmail)
+        send_email_task(sendmail)
         return f"Email task to {sendmail} has been queued.", 200
 
-    if talktome:
+    if talktome is not None:
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         logging.info(f'Current time logged: {current_time}')
         return f"Current time {current_time} has been logged.", 200
